@@ -1,5 +1,9 @@
 import { z, defineCollection, reference } from "astro:content";
 
+if (!import.meta.env.GOOGLE_SHEET_APP_URL.startsWith('https')) {
+  throw new Error("GOOGLE_SHEET_APP_URL not set at build time")
+}
+
 const seasons = defineCollection({
   type: 'content_layer',
   loader: async () => {
