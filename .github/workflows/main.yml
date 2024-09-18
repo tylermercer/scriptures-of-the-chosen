@@ -51,7 +51,7 @@ jobs:
         if: steps.determine_mode.outputs.mode == 'always' || steps.check_files.outputs.non_markdown_files != ''
         env:
           COMMIT_HASH: ${{ github.sha }}
-          GOOGLE_SHEET_APP_URL : $${{ secrets.GOOGLE_SHEET_APP_URL }}
+          GOOGLE_SHEET_APP_URL: ${{ secrets.GOOGLE_SHEET_APP_URL }}
           # PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.PUBLIC_TURNSTILE_SITE_KEY }}
         run: |
           npm install
