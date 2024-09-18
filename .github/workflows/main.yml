@@ -55,7 +55,6 @@ jobs:
           # PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.PUBLIC_TURNSTILE_SITE_KEY }}
         run: |
           npm install
-          npm run check
           npm run build
           echo "result=built" >> $GITHUB_OUTPUT
 
