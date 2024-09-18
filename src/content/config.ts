@@ -25,29 +25,20 @@ const seasons = defineCollection({
 const episodes = defineCollection({
   type: 'content_layer',
   loader: async () => {
-    const response = await fetch(`${import.meta.env.GOOGLE_SHEET_APP_URL}?s=References`);
-    const data = await response.json();
+    const referencesResponse = await fetch(`${import.meta.env.GOOGLE_SHEET_APP_URL}?s=References`);
+    const references = await referencesResponse.json();
 
-    const groupedData = data.filter((e: any) => e.season && e.episode).reduce((acc: any, item: any) => {
-      const episodeId = `${item.season}:${item.episode}`;
+    const episodesResponse = await fetch(`${import.meta.env.GOOGLE_SHEET_APP_URL}?s=Episodes`);
+    const episodes = (await episodesResponse.json()).sort((e: any) => e.season + e.episode);
 
-      if (!acc[episodeId]) {
-        acc[episodeId] = {
-          id: episodeId,
-          season: item.season,
-          episode: item.episode,
-          title: 'TODO: get from other API call',
-          description: 'TODO: get from other API call',
-          references: []
-        };
-      }
-
-      acc[episodeId].references.push(item);
-
-      return acc;
-    }, {});
-
-    return Object.values(groupedData) as { id: string }[];
+    return episodes.map((e: any) => ({
+      id: `${e.season}:${e.episode}`,
+      season: e.season,
+      episode: e.episode,
+      title: e.title,
+      description: e.description,
+      references: references.filter((r: any) => r.season === e.season && r.episode === e.episode)
+    }))
   },
   schema: z.object({
     title: z.string(),
