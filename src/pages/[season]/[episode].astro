@@ -28,6 +28,8 @@ const { entry } = Astro.props;
     <NavigationBar />
     <main class="u-guttered">
         <h1>{entry.data.title}</h1>
+        <p>{entry.data.description}</p>
+        <p><small>{entry.data.references.length} References</small></p>
     </main>
     <Footer />
 </Base>
