@@ -1,0 +1,31 @@
+.l-stack > *,
+.l-stack:before,
+.l-stack:after {
+    grid-area: 1 / 1 / 2 / 2;
+    position: relative;
+}
+.l-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    --l-switcher-modifier: calc(50rem - 100%);
+    gap: var(--space-m);
+}
+.l-switcher > * {
+    flex-grow: 1;
+    flex-basis: calc(var(--l-switcher-modifier) * 999);
+}
+.l-sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    row-gap: 0;
+    & > .sidebar {
+        flex-grow: 1;
+        flex-basis: var(--l-sidebar-width, 20rem);
+    }
+    & > :not(.sidebar) {
+        flex-basis: 0;
+        flex-grow: 999;
+        min-inline-size: 50%;
+    }
+}

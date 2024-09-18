@@ -1,0 +1,29 @@
+---
+import Base from "./Base.astro";
+import Footer from "@components/sections/Footer.astro";
+import NavigationBar from "@components/sections/NavigationBar.astro";
+
+export type Props = {
+    title: string,
+    frontmatter?: {
+        title: string
+    },
+}
+
+const { title } = Astro.props.frontmatter || Astro.props;
+---
+
+<Base title={`${title} | Scriptures of The Chosen`}>
+    <NavigationBar />
+    <div class="u-guttered">
+        <slot name="eyebrow"></slot>
+        <h1>{title}</h1>
+        <slot></slot>
+    </div>
+    <Footer />
+</Base>
+<style lang="scss">
+    h1 {
+        margin-block-start: var(--space-xs);
+    }
+</style>

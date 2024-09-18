@@ -1,0 +1,43 @@
+{
+	"name": "scriptures-of-the-chosen",
+	"private": true,
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "astro dev",
+		"dev-hosted": "astro dev --host",
+		"check:watch": "astro check --watch",
+		"check": "astro check",
+		"sync": "astro sync",
+		"build": "astro build",
+		"astro": "astro",
+		"preview": "astro preview"
+	},
+	"dependencies": {
+		"@astrojs/check": "^0.9.3",
+		"@astrojs/cloudflare": "^11.0.4",
+		"@astrojs/sitemap": "^3.1.6",
+		"@fontsource-variable/eb-garamond": "^5.0.7",
+		"@fontsource-variable/figtree": "^5.0.6",
+		"@fontsource-variable/inter": "^5.1.0",
+		"@fontsource-variable/piazzolla": "^5.0.18",
+		"@fontsource-variable/playfair-display": "^5.0.6",
+		"@fontsource/fira-sans": "^5.0.17",
+		"@fontsource/vollkorn-sc": "^5.0.13",
+		"astro": "^4.14.5",
+		"modern-normalize": "^2.0.0",
+		"remark-footnotes": "^4.0.1",
+		"sass": "^1.63.6",
+		"typescript": "^5.2.2"
+	},
+	"devDependencies": {
+		"@iconify-json/ri": "^1.1.22",
+		"@types/luxon": "^3.3.1",
+		"astro-icon": "^1.1.0",
+		"astro-meta-tags": "^0.3.0",
+		"copy-folder-util": "^1.1.2",
+		"luxon": "^3.3.0",
+		"vite": "^4.3.2",
+		"wrangler": "^3.72.0"
+	}
+}

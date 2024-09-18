@@ -1,0 +1,78 @@
+:root {
+    /* @link https://utopia.fyi/type/calculator?c=320,18,1.25,1240,20,1.333,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+    --step--2: clamp(0.70rem, calc(0.73rem + -0.03vw), 0.72rem);
+    --step--1: clamp(0.90rem, calc(0.89rem + 0.07vw), 0.94rem);
+    --step-0:  clamp(1.13rem, calc(1.08rem + 0.22vw), 1.25rem);
+    --step-1:  clamp(1.41rem, calc(1.32rem + 0.45vw), 1.67rem);
+    --step-2:  clamp(1.76rem, calc(1.60rem + 0.81vw), 2.22rem);
+    --step-3:  clamp(2.20rem, calc(1.93rem + 1.33vw), 2.96rem);
+    --step-4:  clamp(2.75rem, calc(2.33rem + 2.09vw), 3.95rem);
+    --step-5:  clamp(3.43rem, calc(2.80rem + 3.18vw), 5.26rem);
+
+    --lh--2: 2.10;
+    --lh--1: 1.80;
+    --lh-0:  1.60;
+    --lh-1:  1.30;
+    --lh-2:  1.10;
+    --lh-3:  1;
+    --lh-4:  1;
+    --lh-5:  1;
+
+    /* @link https://utopia.fyi/space/calculator/?c=320,18,1.2,1480,20,1.25,6,1,&s=0.75|0.5|0.25,1.5|2|3|4|6|8,2xs-s|xl-m&g=s,l,2xl,12 */
+    --space-3xs: clamp(0.3125rem, 0.3125rem + 0vw, 0.3125rem);
+    --space-2xs: clamp(0.5625rem, 0.5453rem + 0.0862vw, 0.625rem);
+    --space-xs: clamp(0.875rem, 0.8578rem + 0.0862vw, 0.9375rem);
+    --space-s: clamp(1.125rem, 1.0905rem + 0.1724vw, 1.25rem);
+    --space-m: clamp(1.6875rem, 1.6358rem + 0.2586vw, 1.875rem);
+    --space-l: clamp(2.25rem, 2.181rem + 0.3448vw, 2.5rem);
+    --space-xl: clamp(3.375rem, 3.2716rem + 0.5172vw, 3.75rem);
+    --space-2xl: clamp(4.5rem, 4.3621rem + 0.6897vw, 5rem);
+    --space-3xl: clamp(6.75rem, 6.5431rem + 1.0345vw, 7.5rem);
+    --space-4xl: clamp(9rem, 8.7241rem + 1.3793vw, 10rem);
+
+    /* One-up pairs */
+    --space-3xs-2xs: clamp(0.3125rem, 0.2263rem + 0.431vw, 0.625rem);
+    --space-2xs-xs: clamp(0.5625rem, 0.4591rem + 0.5172vw, 0.9375rem);
+    --space-xs-s: clamp(0.875rem, 0.7716rem + 0.5172vw, 1.25rem);
+    --space-s-m: clamp(1.125rem, 0.9181rem + 1.0345vw, 1.875rem);
+    --space-m-l: clamp(1.6875rem, 1.4634rem + 1.1207vw, 2.5rem);
+    --space-l-xl: clamp(2.25rem, 1.8362rem + 2.069vw, 3.75rem);
+    --space-xl-2xl: clamp(3.375rem, 2.9267rem + 2.2414vw, 5rem);
+    --space-2xl-3xl: clamp(4.5rem, 3.6724rem + 4.1379vw, 7.5rem);
+    --space-3xl-4xl: clamp(6.75rem, 5.8534rem + 4.4828vw, 10rem);
+
+    /* Custom pairs */
+    --space-2xs-s: clamp(0.5625rem, 0.3728rem + 0.9483vw, 1.25rem);
+    --space-xl-m: clamp(1.875rem, 3.7888rem + -2.069vw, 3.375rem);
+
+    /* Fonts */
+    --body: 'Inter Variable', system-ui, sans-serif;
+    --heading: 'EB Garamond Variable', 'Palatino Linotype', Georgia, Cambria, 'Times New Roman', serif;
+    --accent: 'Inter Variable', system-ui, sans-serif;
+
+    /* Colors */
+    --white: hsl(0, 0%, 100%);
+    --black: hsl(0, 0%, 0%);
+    --primary-50: hsl(168, 88%, 97%);
+    --primary-100: hsl(172, 96%, 89%);
+    --primary-200: hsl(173, 95%, 78%);
+    --primary-300: hsl(175, 87%, 64%);
+    --primary-400: hsl(177, 74%, 50%);
+    --primary-500: hsl(178, 90%, 36%);
+    --primary-600: hsl(180, 94%, 32%);
+    --primary-700: hsl(180, 86%, 26%);
+    --primary-800: hsl(181, 78%, 22%);
+    --primary-900: hsl(180, 69%, 19%);
+    --primary-950: hsl(184, 96%, 10%);
+    --gray-50:  hsl(168, 0%, 97%);
+    --gray-100: hsl(172, 0%, 89%);
+    --gray-200: hsl(173, 0%, 78%);
+    --gray-300: hsl(175, 0%, 64%);
+    --gray-400: hsl(177, 0%, 50%);
+    --gray-500: hsl(178, 0%, 40%);
+    --gray-600: hsl(180, 0%, 29%);
+    --gray-700: hsl(180, 0%, 26%);
+    --gray-800: hsl(181, 0%, 22%);
+    --gray-900: hsl(180, 0%, 19%);
+    --gray-950: hsl(184, 0%, 10%);
+}

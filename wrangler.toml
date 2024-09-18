@@ -1,0 +1,12 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "scripturesofthechosen"
+pages_build_output_dir = "./dist"
+compatibility_date = "2024-04-05"
+
+[limits]
+cpu_ms = 150
+
+[vars]
+SENDGRID_LIST_ID = "36bce44e-10c5-4a73-902b-d3b240a0e80e"
+SENDGRID_UNSUBSCRIBE_GROUP_ID = "44719"
+SENDGRID_WELCOME_TEMPLATE_ID = "d-34cb7e817f5242949fc9c6e067d94225"

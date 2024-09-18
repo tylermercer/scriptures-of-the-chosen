@@ -1,0 +1,120 @@
+html {
+    scroll-behavior: smooth;
+    color-scheme: dark light;
+    color: var(--gray-50);
+    background-color: var(--gray-950);
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-size: var(--step-0);
+    line-height: var(--lh-0);
+    font-family: var(--body);
+}
+
+a {
+    line-height: var(--lh-0);
+    color: var(--primary-400);
+    text-decoration-thickness: from-font;
+    text-underline-offset: 2px;
+
+    &:hover {
+        color: var(--primary-500);
+    }
+
+    & > .manicule-inline {
+        margin-inline-start: 2px;
+        block-size: 1em;
+        inline-size: 1em;
+        transform: translateY(3px) rotate(-90deg);
+    }
+}
+
+h1 {
+    font-size: var(--step-5);
+    line-height: var(--lh-5);
+}
+
+h2 {
+    font-size: var(--step-3);
+    line-height: var(--lh-3);
+}
+
+h3 {
+    font-size: var(--step-2);
+    line-height: var(--lh-2);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--primary-500);
+    font-family: var(--heading);
+    font-weight: 400;
+    text-wrap: pretty;
+    text-transform: uppercase;
+    > a {
+        line-height: inherit;
+    }
+}
+
+hr {
+    margin-inline: var(--space-s);
+    border: 1px solid var(--gray-100);
+}
+
+small {
+    font-size: var(--step--1);
+}
+
+p {
+    margin-block: var(--space-s);
+}
+
+blockquote {
+    padding: var(--space-s);
+    margin: 0;
+    border-inline-start: 2px solid var(--primary-800);
+    background-color: var(--med-100);
+    color: var(--primary-950);
+    & > p:first-child {
+        margin-block-start: 0;
+    }
+    & > p:last-child {
+        margin-block-end: 0;
+    }
+}
+
+
+button {
+    font-family: var(--accent);
+    cursor: pointer;
+    border: none;
+    color: white;
+    background-color: var(--primary-700);
+    border-radius: 0;
+    font-weight: 600;
+    font-size: var(--step-0);
+    padding: var(--space-xs) var(--space-s);
+    text-align: center;
+}
+button:hover,
+button:focus {
+    background-color: var(--primary-800);
+}
+button:disabled {
+    opacity: 0.8;
+}
+
+textarea {
+    resize: vertical;
+    min-height: var(--space-2xl);
+    @supports(field-sizing: content) {
+        field-sizing: content;
+        resize: none;
+    }
+}

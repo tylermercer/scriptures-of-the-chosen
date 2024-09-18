@@ -1,0 +1,77 @@
+---
+
+---
+
+<header class="u-text-on-dark">
+    <nav class="u-guttered l-cluster">
+        <div class="nav-container">
+            <ul class="nav-inner">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<style lang="scss">
+    header {
+        block-size: var(--nav-height);
+        position: relative;
+        background-color: var(--gray-950);
+    }
+    nav {
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline: 0;
+        z-index: 10;
+        block-size: var(--nav-height);
+    }
+    .nav-container {
+        overflow-y: hidden;
+        block-size: var(--nav-height);
+        background-color: var(--gray-950);
+        color: var(--gray-50);
+        font-size: var(--step--1);
+        transition: block-size 0.3s ease;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+    .nav-inner {
+        block-size: 100%;
+        margin: 0 auto;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: var(--space-s);
+        margin-inline: calc(-1* var(--space-s));
+        padding: 0;
+    }
+    a {
+        font-family: var(--accent);
+        text-decoration: none;
+        text-transform: uppercase;
+        padding-inline: var(--space-s);
+        display: block;
+        block-size: var(--nav-height);
+        line-height: var(--nav-height);
+        font-size: var(--step-0);
+        font-weight: 300;
+        &:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--primary-600);
+            text-decoration-thickness: 3px;
+            text-underline-offset: 6px;
+        }
+        &:link {
+            color: var(--white);
+        }
+        &:visited {
+            color: var(--white);
+        }
+    }
+</style>
+<style is:global>
+    :root {
+        --nav-height: var(--space-2xl);
+    }
+</style>

@@ -1,0 +1,25 @@
+---
+import Base from "@layouts/Base.astro";
+import Footer from "@components/sections/Footer.astro";
+import NavigationBar from "@components/sections/NavigationBar.astro";
+
+import * as landingPage from "../content/_one-offs/landing-page.md";
+
+const {
+	Content,
+	frontmatter: { title, description: tagline },
+} = landingPage;
+---
+
+<Base title={title + " | " + tagline}>
+	<NavigationBar />
+	<section class="u-guttered">
+		<h1 class="title">{title}</h1>
+		<Content />
+	</section>
+	<Footer />
+</Base>
+<style lang="scss">
+	.title {
+	}
+</style>
