@@ -30,6 +30,7 @@ const { entry } = Astro.props;
     <main class="u-guttered">
         <h1>{entry.data.title}</h1>
         <p>{entry.data.description}</p>
+        <h2>References</h2>
         <p><small>{entry.data.references.length} Reference{entry.data.references.length === 1 ? '' : 's'}</small></p>
 		<ol>
 			{entry.data.references.map((ref: CollectionEntry<'episodes'>['data']['references'][number]) => (
@@ -38,7 +39,9 @@ const { entry } = Astro.props;
                     <ol>
                         {ref.verses.map((v: Verse) => (
                             <li>
-                                {v.number} {v.text}
+                                <blockquote>
+                                    {ref.verses.length !== 1 && <><strong>{v.number}</strong>{" "}</>}{v.text}
+                                </blockquote>
                             </li>       
                         ))}
                     </ol>
