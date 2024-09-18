@@ -9,6 +9,9 @@ import remarkEmdash from './src/plugins/remark/emdash';
 export default defineConfig({
   output: "hybrid",
   adapter: cloudflare(),
+  experimental: {
+    contentLayer: true
+  },
   site: "https://scripturesofthechosen.tylermercer.net",
   integrations: [sitemap(), icon(), metaTags()],
   markdown: {

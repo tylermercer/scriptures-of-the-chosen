@@ -10,9 +10,8 @@ export const getStaticPaths = (async () => {
         await getCollection("episodes");
 
     return episodes.map((entry) => {
-        const [season, episode] = entry.slug.split("/");
         return {
-            params: { episode, season },
+            params: { episode: entry.data.episode, season: entry.data.season.id },
             props: { entry },
         };
     });
