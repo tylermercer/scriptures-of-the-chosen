@@ -4,6 +4,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import Base from "@layouts/Base.astro";
 import Footer from "@components/sections/Footer.astro";
 import NavigationBar from "@components/sections/NavigationBar.astro";
+import type { Verse } from "@utils/getScriptureText";
 
 export const getStaticPaths = (async () => {
     const episodes: CollectionEntry<"episodes">[] =
@@ -29,7 +30,21 @@ const { entry } = Astro.props;
     <main class="u-guttered">
         <h1>{entry.data.title}</h1>
         <p>{entry.data.description}</p>
-        <p><small>{entry.data.references.length} References</small></p>
+        <p><small>{entry.data.references.length} Reference{entry.data.references.length === 1 ? '' : 's'}</small></p>
+		<ol>
+			{entry.data.references.map((ref: CollectionEntry<'episodes'>['data']['references'][number]) => (
+				<li>
+                    <h3>{ref.passage}</h3>
+                    <ol>
+                        {ref.verses.map((v: Verse) => (
+                            <li>
+                                {v.number} {v.text}
+                            </li>       
+                        ))}
+                    </ol>
+                </li>
+			))}
+		</ol>
     </main>
     <Footer />
 </Base>
