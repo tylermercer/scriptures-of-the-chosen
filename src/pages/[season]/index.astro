@@ -1,0 +1,62 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+import Base from "@layouts/Base.astro";
+import Footer from "@components/sections/Footer.astro";
+import NavigationBar from "@components/sections/NavigationBar.astro";
+
+export const getStaticPaths = (async () => {
+    const seasons: CollectionEntry<"seasons">[] =
+        await getCollection("seasons");
+
+    return seasons.map((entry) => {
+        return {
+            params: { season: entry.id },
+            props: { entry },
+        };
+    });
+}) satisfies GetStaticPaths;
+
+export type Props = {
+    entry: CollectionEntry<"seasons">;
+};
+
+const { entry } = Astro.props;
+
+const episodes = await getCollection('episodes', (e: CollectionEntry<'episodes'>) => e.data.season.id === entry.id);
+---
+
+<Base title={`${entry.data.title} | Scriptures of The Chosen`}>
+    <NavigationBar />
+    <main class="u-guttered">
+        <h1>{entry.data.title}</h1>
+		<h2>Episodes</h2>
+		<ol>
+			{episodes.map((e: CollectionEntry<'episodes'>) => (
+				<li><a href={`/${entry.id}/${e.data.episode}`}>{e.data.title}</a></li>
+			))}
+		</ol>
+    </main>
+    <Footer />
+</Base>
+<style lang="scss">
+    h1 {
+        margin-block-start: var(--space-xs);
+    }
+    .dateline {
+        margin-block-end: var(--space-xs);
+        margin-block-start: var(--space-s);
+    }
+    .hero {
+        inline-size: 100%;
+        block-size: 100%;
+        aspect-ratio: 3/2;
+        object-fit: cover;
+    }
+    .hero-section {
+        padding-bottom: 0;
+    }
+    .article-section {
+        padding-top: 0;
+    }
+</style>

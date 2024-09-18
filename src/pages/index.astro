@@ -4,11 +4,15 @@ import Footer from "@components/sections/Footer.astro";
 import NavigationBar from "@components/sections/NavigationBar.astro";
 
 import * as landingPage from "../content/_one-offs/landing-page.md";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 
 const {
 	Content,
 	frontmatter: { title, description: tagline },
 } = landingPage;
+
+const seasons = await getCollection('seasons');
 ---
 
 <Base title={title + " | " + tagline}>
@@ -16,6 +20,12 @@ const {
 	<main class="u-guttered">
 		<h1>{title}</h1>
 		<Content />
+		<h2>Seasons</h2>
+		<ol>
+			{seasons.map((s: CollectionEntry<'seasons'>) => (
+				<li><a href={`/${s.id}`}>{s.data.title}</a></li>
+			))}
+		</ol>
 	</main>
 	<Footer />
 </Base>
