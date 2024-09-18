@@ -25,30 +25,8 @@ jobs:
         with:
           token: ${{ secrets.GH_PAT }}
 
-      - name: Determine whether to check for changed non-markdown files
-        id: determine_mode
-        run: |
-          if [[ "${{ github.event_name }}" == "schedule" || "${{ github.event_name }}" == "workflow_dispatch" || "${{ github.event_name }}" == "pull_request" ]]; then
-            echo "mode=always" >> $GITHUB_OUTPUT
-          else
-            echo "mode=check" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Get changed files
-        id: changed_files
-        if: steps.determine_mode.outputs.mode == 'check'
-        uses: tj-actions/changed-files@v41
-
-      - name: Check for non-Markdown files
-        id: check_files
-        if: steps.determine_mode.outputs.mode == 'check'
-        run: |
-          non_markdown_files=$(echo "${{ steps.changed_files.outputs.modified_files }}" | grep -v '\.md$' || true)
-          echo "non_markdown_files=$non_markdown_files" >> $GITHUB_OUTPUT
-
       - name: Build site
         id: build_site
-        if: steps.determine_mode.outputs.mode == 'always' || steps.check_files.outputs.non_markdown_files != ''
         env:
           COMMIT_HASH: ${{ github.sha }}
           GOOGLE_SHEET_APP_URL: ${{ secrets.GOOGLE_SHEET_APP_URL }}
