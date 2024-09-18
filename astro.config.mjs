@@ -9,7 +9,7 @@ import remarkEmdash from './src/plugins/remark/emdash';
 export default defineConfig({
   output: "hybrid",
   adapter: cloudflare(),
-  site: "https://scriptures-of-the-chosen.com",
+  site: "https://scripturesofthechosen.tylermercer.net",
   integrations: [sitemap(), icon(), metaTags()],
   markdown: {
     remarkPlugins: [remarkEmdash],
