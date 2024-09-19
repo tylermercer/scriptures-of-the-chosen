@@ -1,10 +1,11 @@
 ---
-import type { GetStaticPaths } from "astro";
-import { getCollection, type CollectionEntry } from "astro:content";
-import Base from "@layouts/Base.astro";
 import Footer from "@components/sections/Footer.astro";
 import NavigationBar from "@components/sections/NavigationBar.astro";
+import Base from "@layouts/Base.astro";
 import type { Verse } from "@utils/getScriptureText";
+import type { GetStaticPaths } from "astro";
+import { Icon } from "astro-icon/components";
+import { getCollection, type CollectionEntry } from "astro:content";
 
 export const getStaticPaths = (async () => {
     const episodes: CollectionEntry<"episodes">[] =
@@ -35,13 +36,14 @@ type Reference = CollectionEntry<"episodes">["data"]["references"][number];
     <main class="u-guttered">
         <h1>{entry.data.title}</h1>
         {entry.data.description && <p>"{entry.data.description}"</p>}
+        <a class="watch" href={entry.data.watchUrl} target="_blank">
+            Watch on TheChosen.tv <Icon name="fluent:open-12-regular" />
+        </a>
         <h2>References</h2>
         <p>
-            <small
-                >{entry.data.references.length} Reference{
-                    entry.data.references.length === 1 ? "" : "s"
-                }</small
-            >
+            {entry.data.references.length} Reference{
+                entry.data.references.length === 1 ? "" : "s"
+            }
         </p>
         <ol>
             {
@@ -74,6 +76,27 @@ type Reference = CollectionEntry<"episodes">["data"]["references"][number];
     h1 {
         margin-block-start: var(--space-xs);
     }
+    .watch {
+        display: inline-block;
+        padding: 0.5em 1em;
+        border-radius: 0.4em;
+        background-color: var(--primary-700);
+        box-shadow: 0px 4px 4px black;
+        color: var(--gray-50);
+        text-decoration: none;
+        font-size: var(--step-0);
+        transition: background-color ease 200ms, transform ease 200ms;
+        & > :global(svg) {
+            display: inline-block;
+            margin-left: 0.4em;
+            transform: translateY(0.15em) scale(1.3);
+        }
+        &:hover, &:focus {
+            transform: translateY(-2px);
+            box-shadow: 0px 6px 6px black;
+            background-color: var(--primary-600);
+        }
+    }
     .dateline {
         margin-block-end: var(--space-xs);
         margin-block-start: var(--space-s);
@@ -92,5 +115,8 @@ type Reference = CollectionEntry<"episodes">["data"]["references"][number];
     }
     .passage > :not(:first-child) {
         margin-top: 1em;
+    }
+    blockquote li:first-child {
+        margin-top: 0;
     }
 </style>

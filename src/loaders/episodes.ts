@@ -19,10 +19,7 @@ export default {
 
         const data = episodes.map((e: any) => ({
             id: `${e.season}:${e.episode}`,
-            season: e.season,
-            episode: e.episode,
-            title: e.title,
-            description: e.description,
+            ...e,
             references: references.filter((r: any) => r.season === e.season && r.episode === e.episode)
         }))
 
@@ -42,6 +39,7 @@ export default {
       description: z.string(),
       season: reference('seasons'),
       episode: z.string(),
+      watchUrl: z.string().url(),
       references: z.array(z.object({
         timeRange: z.string().optional(),
         notes: z.string(),

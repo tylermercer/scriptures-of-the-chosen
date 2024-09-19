@@ -49,6 +49,7 @@
     --body: 'Inter Variable', system-ui, sans-serif;
     --heading: 'EB Garamond Variable', 'Palatino Linotype', Georgia, Cambria, 'Times New Roman', serif;
     --accent: 'Inter Variable', system-ui, sans-serif;
+    --quote: Georgia, Cambria, 'Times New Roman', serif;
 
     /* Colors */
     --white: hsl(0, 0%, 100%);
