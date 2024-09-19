@@ -6,13 +6,21 @@ import NavigationBar from "@components/sections/NavigationBar.astro";
 import * as landingPage from "../content/_one-offs/landing-page.md";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
+import type { Verse } from "@utils/getScriptureText";
 
 const {
 	Content,
 	frontmatter: { title, description: tagline },
 } = landingPage;
 
-const seasons = await getCollection('seasons');
+const seasons = await Promise.all(
+	(await getCollection("seasons")).map(async (s) => [
+		s,
+		(await getCollection("episodes", (e) => e.data.season.id === s.id)).flatMap(e => e.data.references),
+	]),
+);
+
+type Season = CollectionEntry<"seasons">;
 ---
 
 <Base title={title + " | " + tagline}>
@@ -22,9 +30,14 @@ const seasons = await getCollection('seasons');
 		<Content />
 		<h2>Seasons</h2>
 		<ol>
-			{seasons.map((s: CollectionEntry<'seasons'>) => (
-				<li><a href={`/${s.id}`}>{s.data.title}</a></li>
-			))}
+			{
+				seasons.map(([s, v]: [Season, Verse[]]) => (
+					<li>
+						<h3><a href={`/${s.id}`}>{s.data.title}</a></h3>
+						<p>{v.length} Reference{v.length === 1 ? '' : 's'}</p>
+					</li>
+				))
+			}
 		</ol>
 	</main>
 	<Footer />
