@@ -3,6 +3,7 @@ import Footer from "@components/sections/Footer.astro";
 import NavigationBar from "@components/sections/NavigationBar.astro";
 import Base from "@layouts/Base.astro";
 import type { Verse } from "@utils/getScriptureText";
+import pluralize from "@utils/pluralize";
 import type { GetStaticPaths } from "astro";
 import { Icon } from "astro-icon/components";
 import { getCollection, type CollectionEntry } from "astro:content";
@@ -41,9 +42,8 @@ type Reference = CollectionEntry<"episodes">["data"]["references"][number];
         </a>
         <h2>References</h2>
         <p>
-            {entry.data.references.length} Reference{
-                entry.data.references.length === 1 ? "" : "s"
-            }
+            {entry.data.references.length}
+            {pluralize('Reference', entry.data.references.length)}
         </p>
         <ol>
             {
@@ -73,9 +73,6 @@ type Reference = CollectionEntry<"episodes">["data"]["references"][number];
     <Footer />
 </Base>
 <style lang="scss">
-    h1 {
-        margin-block-start: var(--space-xs);
-    }
     .watch {
         display: inline-block;
         padding: 0.5em 1em;

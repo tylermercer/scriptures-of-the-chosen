@@ -4,6 +4,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import Base from "@layouts/Base.astro";
 import Footer from "@components/sections/Footer.astro";
 import NavigationBar from "@components/sections/NavigationBar.astro";
+import pluralize from "@utils/pluralize";
 
 export const getStaticPaths = (async () => {
     const seasons: CollectionEntry<"seasons">[] =
@@ -23,33 +24,43 @@ export type Props = {
 
 const { entry } = Astro.props;
 
-const episodes = await getCollection('episodes', (e: CollectionEntry<'episodes'>) => e.data.season.id === entry.id);
+const episodes = await getCollection(
+    "episodes",
+    (e: CollectionEntry<"episodes">) => e.data.season.id === entry.id,
+);
 
-type Episode = CollectionEntry<'episodes'>;
+type Episode = CollectionEntry<"episodes">;
 ---
 
 <Base title={`${entry.data.title} | Scriptures of The Chosen`}>
     <NavigationBar />
     <main class="u-guttered">
         <h1>{entry.data.title}</h1>
-		<h2>Episodes</h2>
-		<ol>
-			{
-				episodes.map((e: Episode) => (
-					<li>
-						<h3><a href={`/${entry.id}/${e.data.episode}`}>{e.data.title}</a></h3>
-						<p>{e.data.references.length} Reference{e.data.references.length === 1 ? '' : 's'}</p>
-					</li>
-				))
-			}
-		</ol>
+        <h2>Episodes</h2>
+        <ol>
+            {
+                episodes.map((e: Episode) => (
+                    <li>
+                        <h3>
+                            <a href={`/${entry.id}/${e.data.episode}`}>
+                                <span class="number">
+                                    {entry.id.toUpperCase()}:{e.data.episode.toUpperCase()}
+                                </span>{" "}
+                                {e.data.title}
+                            </a>
+                        </h3>
+                        <p>
+                            {e.data.references.length}
+                            {pluralize('Reference', e.data.references.length)}
+                        </p>
+                    </li>
+                ))
+            }
+        </ol>
     </main>
     <Footer />
 </Base>
 <style lang="scss">
-    h1 {
-        margin-block-start: var(--space-xs);
-    }
     h3 {
         font-family: var(--body);
         text-transform: unset;
@@ -57,6 +68,9 @@ type Episode = CollectionEntry<'episodes'>;
     }
     li {
         margin-top: 1.5em;
+    }
+    .number {
+        color: var(--gray-300);
     }
     .dateline {
         margin-block-end: var(--space-xs);
