@@ -24,6 +24,8 @@ export type Props = {
 const { entry } = Astro.props;
 
 const episodes = await getCollection('episodes', (e: CollectionEntry<'episodes'>) => e.data.season.id === entry.id);
+
+type Episode = CollectionEntry<'episodes'>;
 ---
 
 <Base title={`${entry.data.title} | Scriptures of The Chosen`}>
@@ -32,9 +34,14 @@ const episodes = await getCollection('episodes', (e: CollectionEntry<'episodes'>
         <h1>{entry.data.title}</h1>
 		<h2>Episodes</h2>
 		<ol>
-			{episodes.map((e: CollectionEntry<'episodes'>) => (
-				<li><a href={`/${entry.id}/${e.data.episode}`}>{e.data.title}</a></li>
-			))}
+			{
+				episodes.map((e: Episode) => (
+					<li>
+						<h3><a href={`/${entry.id}/${e.data.episode}`}>{e.data.title}</a></h3>
+						<p>{e.data.references.length} Reference{e.data.references.length === 1 ? '' : 's'}</p>
+					</li>
+				))
+			}
 		</ol>
     </main>
     <Footer />
@@ -42,6 +49,14 @@ const episodes = await getCollection('episodes', (e: CollectionEntry<'episodes'>
 <style lang="scss">
     h1 {
         margin-block-start: var(--space-xs);
+    }
+    h3 {
+        font-family: var(--body);
+        text-transform: unset;
+        font-size: 1em;
+    }
+    li {
+        margin-top: 1.5em;
     }
     .dateline {
         margin-block-end: var(--space-xs);
