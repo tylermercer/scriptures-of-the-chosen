@@ -12,7 +12,10 @@ export const getStaticPaths = (async () => {
 
     return episodes.map((entry) => {
         return {
-            params: { episode: entry.data.episode, season: entry.data.season.id },
+            params: {
+                episode: entry.data.episode,
+                season: entry.data.season.id,
+            },
             props: { entry },
         };
     });
@@ -23,31 +26,47 @@ export type Props = {
 };
 
 const { entry } = Astro.props;
+
+type Reference = CollectionEntry<"episodes">["data"]["references"][number];
 ---
 
 <Base title={`${entry.data.title} | Scriptures of The Chosen`}>
     <NavigationBar />
     <main class="u-guttered">
         <h1>{entry.data.title}</h1>
-        <p>"{entry.data.description}"</p>
+        {entry.data.description && <p>"{entry.data.description}"</p>}
         <h2>References</h2>
-        <p><small>{entry.data.references.length} Reference{entry.data.references.length === 1 ? '' : 's'}</small></p>
-		<ol>
-			{entry.data.references.map((ref: CollectionEntry<'episodes'>['data']['references'][number]) => (
-				<li>
-                    <h3>{ref.passage}</h3>
-                    <ol>
-                        {ref.verses.map((v: Verse) => (
-                            <li>
-                                <blockquote>
-                                    {ref.verses.length !== 1 && <><strong>{v.number}</strong>{" "}</>}{v.text}
-                                </blockquote>
-                            </li>       
-                        ))}
-                    </ol>
-                </li>
-			))}
-		</ol>
+        <p>
+            <small
+                >{entry.data.references.length} Reference{
+                    entry.data.references.length === 1 ? "" : "s"
+                }</small
+            >
+        </p>
+        <ol>
+            {
+                entry.data.references.map((ref: Reference) => (
+                    <li>
+                        <h3>{ref.passage}</h3>
+                        <p>{ref.notes}</p>
+                        <blockquote>
+                            <ol class="passage">
+                                {ref.verses.map((v: Verse) => (
+                                    <li>
+                                        {ref.verses.length !== 1 && (
+                                            <>
+                                                <strong>{v.number}</strong>{" "}
+                                            </>
+                                        )}
+                                        {v.text}
+                                    </li>
+                                ))}
+                            </ol>
+                        </blockquote>
+                    </li>
+                ))
+            }
+        </ol>
     </main>
     <Footer />
 </Base>
@@ -70,5 +89,8 @@ const { entry } = Astro.props;
     }
     .article-section {
         padding-top: 0;
+    }
+    .passage > :not(:first-child) {
+        margin-top: 1em;
     }
 </style>
