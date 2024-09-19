@@ -59,9 +59,8 @@ const episodes = await getCollection(
                         <h3>
                             <a href={`/${entry.id}/${e.data.episode}`}>
                                 <span class="number">
-                                    {entry.id.toUpperCase()}:
-                                    {e.data.episode.toUpperCase()}
-                                </span>{" "}
+                                    {`${entry.id.toUpperCase()}:${e.data.episode.toUpperCase()}`}
+                                </span> &mdash;{" "}
                                 {e.data.title}
                             </a>
                         </h3>
@@ -85,9 +84,6 @@ const episodes = await getCollection(
     }
     li {
         margin-top: 1.5em;
-    }
-    .number {
-        color: var(--gray-300);
     }
     .dateline {
         margin-block-end: var(--space-xs);
