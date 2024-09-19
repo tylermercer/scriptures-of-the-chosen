@@ -4,6 +4,7 @@ import NavigationBar from "@components/sections/NavigationBar.astro";
 import NextAndPrevLinks from "@components/sections/NextAndPrevLinks.astro";
 import Base from "@layouts/Base.astro";
 import type { Verse } from "@utils/getScriptureText";
+import getScriptureText from "@utils/getScriptureText";
 import pluralize from "@utils/pluralize";
 import toWithNextAndPrev, {
     type WithNextAndPrev,
@@ -46,13 +47,26 @@ const nextData = next && {
 };
 
 type Reference = CollectionEntry<"episodes">["data"]["references"][number];
+
+const passageTexts: Map<string, Verse[]> = new Map(
+    await Promise.all(
+        entry.data.references.map(async (r: Reference) => [
+            r.passage,
+            await getScriptureText(r.passage),
+        ]),
+    ),
+);
 ---
 
 <Base title={`${entry.data.title} | Scriptures of The Chosen`}>
     <NavigationBar />
     <main class="u-guttered">
         <h1>{entry.data.title}</h1>
-        {entry.data.description && <p>&ldquo;{entry.data.description}&rdquo;</p>}
+        {
+            entry.data.description && (
+                <p>&ldquo;{entry.data.description}&rdquo;</p>
+            )
+        }
         <a class="watch" href={entry.data.watchUrl} target="_blank">
             Watch on TheChosen.tv <Icon name="fluent:open-12-regular" />
         </a>
@@ -63,26 +77,29 @@ type Reference = CollectionEntry<"episodes">["data"]["references"][number];
         </p>
         <ol>
             {
-                entry.data.references.map((ref: Reference) => (
-                    <li>
-                        <h3>{ref.passage}</h3>
-                        <p>{ref.notes}</p>
-                        <blockquote>
-                            <ol class="passage">
-                                {ref.verses.map((v: Verse) => (
-                                    <li>
-                                        {ref.verses.length !== 1 && (
-                                            <>
-                                                <strong>{v.number}</strong>{" "}
-                                            </>
-                                        )}
-                                        {v.text}
-                                    </li>
-                                ))}
-                            </ol>
-                        </blockquote>
-                    </li>
-                ))
+                entry.data.references.map((ref: Reference) => {
+                    const passageVerses = passageTexts.get(ref.passage)!;
+                    return (
+                        <Fragment><li>
+                            <h3>{ref.passage}</h3>
+                            <p>{ref.notes}</p>
+                            <blockquote>
+                                <ol class="passage">
+                                    {passageVerses.map((v: Verse) => (
+                                        <Fragment><li>
+                                            {passageVerses.length !== 1 && (
+                                                <Fragment><>
+                                                    <strong>{v.number}</strong>{" "}
+                                                </></Fragment>
+                                            )}
+                                            {v.text}
+                                        </li></Fragment>
+                                    ))}
+                                </ol>
+                            </blockquote>
+                        </li></Fragment>
+                    );
+                })
             }
         </ol>
     </main>
