@@ -60,13 +60,19 @@ const episodes = await getCollection(
                             <a href={`/${entry.id}/${e.data.episode}`}>
                                 <span class="number">
                                     {`${entry.id.toUpperCase()}:${e.data.episode.toUpperCase()}`}
-                                </span> &mdash;{" "}
-                                {e.data.title}
+                                </span>{" "}
+                                &mdash; {e.data.title}
                             </a>
                         </h3>
+                        {e.data.description && <p>&ldquo;{e.data.description}&rdquo;</p>}
                         <p>
-                            {e.data.references.length}
-                            {pluralize("Reference", e.data.references.length)}
+                            <small>
+                                {e.data.references.length}
+                                {pluralize(
+                                    "Reference",
+                                    e.data.references.length,
+                                )}
+                            </small>
                         </p>
                     </li>
                 ))
