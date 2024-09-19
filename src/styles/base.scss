@@ -57,6 +57,7 @@ h6 {
     font-weight: 400;
     text-wrap: pretty;
     text-transform: uppercase;
+    margin-bottom: 0;
     > a {
         line-height: inherit;
     }
@@ -121,4 +122,5 @@ textarea {
 
 ol {
     list-style-type: none;
+    padding-left: 0;
 }
