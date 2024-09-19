@@ -5,31 +5,46 @@ import Base from "@layouts/Base.astro";
 import Footer from "@components/sections/Footer.astro";
 import NavigationBar from "@components/sections/NavigationBar.astro";
 import pluralize from "@utils/pluralize";
+import type { WithNextAndPrev } from "@utils/toWithNextAndPrev";
+import NextAndPrevLinks from "@components/sections/NextAndPrevLinks.astro";
+import toWithNextAndPrev from "@utils/toWithNextAndPrev";
 
 export const getStaticPaths = (async () => {
     const seasons: CollectionEntry<"seasons">[] =
         await getCollection("seasons");
 
-    return seasons.map((entry) => {
+    return toWithNextAndPrev(seasons).map((entryWithNextAndPrev) => {
         return {
-            params: { season: entry.id },
-            props: { entry },
+            params: { season: entryWithNextAndPrev.item.id },
+            props: { entryWithNextAndPrev },
         };
     });
 }) satisfies GetStaticPaths;
 
 export type Props = {
-    entry: CollectionEntry<"seasons">;
+    entryWithNextAndPrev: WithNextAndPrev<CollectionEntry<"seasons">>;
 };
 
-const { entry } = Astro.props;
+type Episode = CollectionEntry<"episodes">;
+
+const { entryWithNextAndPrev } = Astro.props;
+
+const { item: entry, next, prev } = entryWithNextAndPrev;
+
+const prevData = prev && {
+    label: prev.data.title,
+    url: `/${prev.id}`,
+};
+
+const nextData = next && {
+    label: next.data.title,
+    url: `/${next.id}`,
+};
 
 const episodes = await getCollection(
     "episodes",
     (e: CollectionEntry<"episodes">) => e.data.season.id === entry.id,
 );
-
-type Episode = CollectionEntry<"episodes">;
 ---
 
 <Base title={`${entry.data.title} | Scriptures of The Chosen`}>
@@ -44,20 +59,22 @@ type Episode = CollectionEntry<"episodes">;
                         <h3>
                             <a href={`/${entry.id}/${e.data.episode}`}>
                                 <span class="number">
-                                    {entry.id.toUpperCase()}:{e.data.episode.toUpperCase()}
+                                    {entry.id.toUpperCase()}:
+                                    {e.data.episode.toUpperCase()}
                                 </span>{" "}
                                 {e.data.title}
                             </a>
                         </h3>
                         <p>
                             {e.data.references.length}
-                            {pluralize('Reference', e.data.references.length)}
+                            {pluralize("Reference", e.data.references.length)}
                         </p>
                     </li>
                 ))
             }
         </ol>
     </main>
+    <NextAndPrevLinks next={nextData} prev={prevData} itemLabel="Season" />
     <Footer />
 </Base>
 <style lang="scss">
