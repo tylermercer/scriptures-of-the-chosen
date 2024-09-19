@@ -36,7 +36,7 @@ type Reference = CollectionEntry<"episodes">["data"]["references"][number];
     <NavigationBar />
     <main class="u-guttered">
         <h1>{entry.data.title}</h1>
-        {entry.data.description && <p>"{entry.data.description}"</p>}
+        {entry.data.description && <p>&ldquo;{entry.data.description}&rdquo;</p>}
         <a class="watch" href={entry.data.watchUrl} target="_blank">
             Watch on TheChosen.tv <Icon name="fluent:open-12-regular" />
         </a>
