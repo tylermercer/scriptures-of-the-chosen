@@ -1,4 +1,5 @@
 ---
+import standardizeScripture from '@utils/standardizeScripture';
 import type { CollectionEntry } from 'astro:content'
 export type Props = {
     references: CollectionEntry<'episodes'>['data']['references'],
@@ -6,10 +7,12 @@ export type Props = {
 
 const { references: refs } = Astro.props;
 
-const str = refs.length > 2 ? `${refs[0]?.passage}, ${refs[1]?.passage}, and ${refs.length - 2} more` :
-        refs.length === 2 ? `${refs[0]?.passage} and ${refs[1]?.passage}` :
-        refs.length === 1 ? `${refs[0]?.passage}` :
-        `No references found yet`
+const passages = refs.map(r => standardizeScripture(r.passage));
+
+const text = refs.length > 2 ? `${passages[0]}, ${passages[1]}, and ${refs.length - 2} more` :
+        refs.length === 2 ? `${passages[0]} and ${passages[1]}` :
+        refs.length === 1 ? `${passages[0]}` :
+        `No references found yet`;
 ---
 
-<span>{str}</span>
+<span>{text}</span>
