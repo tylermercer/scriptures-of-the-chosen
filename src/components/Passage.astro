@@ -31,3 +31,11 @@ const passageVerses = await getScriptureText(passage)
         ))}
     </ol>
 </blockquote>
+<style lang="scss">
+    .passage > :not(:first-child) {
+        margin-top: 1em;
+    }
+    blockquote li:first-child {
+        margin-top: 0;
+    }
+</style>
