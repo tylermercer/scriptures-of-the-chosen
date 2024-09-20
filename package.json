@@ -15,7 +15,7 @@
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.9.3",
-		"@astrojs/cloudflare": "^11.0.4",
+		"@astrojs/cloudflare": "^12.0.0-beta.0",
 		"@astrojs/sitemap": "^3.1.6",
 		"@fontsource-variable/eb-garamond": "^5.0.7",
 		"@fontsource-variable/figtree": "^5.0.6",
@@ -25,7 +25,7 @@
 		"@fontsource/fira-sans": "^5.0.17",
 		"@fontsource/vollkorn-sc": "^5.0.13",
 		"@iconify-json/fluent": "^1.2.1",
-		"astro": "^4.14.5",
+		"astro": "^5.0.0-beta.1",
 		"modern-normalize": "^2.0.0",
 		"remark-footnotes": "^4.0.1",
 		"sass": "^1.63.6",
