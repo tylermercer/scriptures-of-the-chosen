@@ -7,11 +7,8 @@ import remarkEmdash from './src/plugins/remark/emdash';
 
 // https://astro.build/config
 export default defineConfig({
-  output: "hybrid",
+  output: "static",
   adapter: cloudflare(),
-  experimental: {
-    contentLayer: true
-  },
   site: "https://scripturesofthechosen.tylermercer.net",
   integrations: [sitemap(), icon(), metaTags()],
   markdown: {
