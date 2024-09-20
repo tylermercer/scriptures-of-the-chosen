@@ -8,6 +8,7 @@ import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import type { Verse } from "@utils/getScriptureText";
 import pluralize from "@utils/pluralize";
+import ReferencesSummary from "@components/ReferencesSummary.astro";
 
 const {
 	Content,
@@ -46,7 +47,7 @@ type Season = CollectionEntry<"seasons">;
 							<a href={`/${s.id}`}>{s.data.title}</a>
 						</h3>
 						<p>
-							{v.length} {pluralize("scripture", v.length)} found
+							<ReferencesSummary references={v} />
 						</p>
 					</li>
 				))

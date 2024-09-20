@@ -1,5 +1,6 @@
 ---
 import Passage from "@components/Passage.astro";
+import ReferencesSummary from "@components/ReferencesSummary.astro";
 import Footer from "@components/sections/Footer.astro";
 import NavigationBar from "@components/sections/NavigationBar.astro";
 import NextAndPrevLinks from "@components/sections/NextAndPrevLinks.astro";
@@ -65,8 +66,9 @@ type Reference = CollectionEntry<"episodes">["data"]["references"][number];
         </a>
         <h2>Scriptures</h2>
         <p>
-            {entry.data.references.length}
-            {pluralize("scripture", entry.data.references.length)} found
+            <ReferencesSummary
+                references={entry.data.references}
+            />
         </p>
         <ol>
             {

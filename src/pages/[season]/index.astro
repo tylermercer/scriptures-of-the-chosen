@@ -8,6 +8,7 @@ import pluralize from "@utils/pluralize";
 import type { WithNextAndPrev } from "@utils/toWithNextAndPrev";
 import NextAndPrevLinks from "@components/sections/NextAndPrevLinks.astro";
 import toWithNextAndPrev from "@utils/toWithNextAndPrev";
+import ReferencesSummary from "@components/ReferencesSummary.astro";
 
 export const getStaticPaths = (async () => {
     const seasons: CollectionEntry<"seasons">[] =
@@ -69,12 +70,9 @@ const episodes = await getCollection(
                         )}
                         <p>
                             <small>
-                                {e.data.references.length}
-                                {pluralize(
-                                    "scripture",
-                                    e.data.references.length,
-                                )}{" "}
-                                found
+                                <ReferencesSummary
+                                    references={e.data.references}
+                                />
                             </small>
                         </p>
                     </li>
