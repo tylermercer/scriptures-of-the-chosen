@@ -12,7 +12,7 @@ const passages = refs.map(r => standardizeScripture(r.passage));
 const text = refs.length > 2 ? `${passages[0]}, ${passages[1]}, and ${refs.length - 2} more` :
         refs.length === 2 ? `${passages[0]} and ${passages[1]}` :
         refs.length === 1 ? `${passages[0]}` :
-        `No references found yet`;
+        `No scriptures found yet`;
 ---
 
 <span>{text}</span>
