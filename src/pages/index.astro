@@ -7,6 +7,7 @@ import * as landingPage from "../content/_one-offs/landing-page.md";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import type { Verse } from "@utils/getScriptureText";
+import pluralize from "@utils/pluralize";
 
 const {
 	Content,
@@ -16,7 +17,9 @@ const {
 const seasons = await Promise.all(
 	(await getCollection("seasons")).map(async (s) => [
 		s,
-		(await getCollection("episodes", (e) => e.data.season.id === s.id)).flatMap(e => e.data.references),
+		(
+			await getCollection("episodes", (e) => e.data.season.id === s.id)
+		).flatMap((e) => e.data.references),
 	]),
 );
 
@@ -33,8 +36,12 @@ type Season = CollectionEntry<"seasons">;
 			{
 				seasons.map(([s, v]: [Season, Verse[]]) => (
 					<li>
-						<h3><a href={`/${s.id}`}>{s.data.title}</a></h3>
-						<p>{v.length} Reference{v.length === 1 ? '' : 's'}</p>
+						<h3>
+							<a href={`/${s.id}`}>{s.data.title}</a>
+						</h3>
+						<p>
+							{v.length} {pluralize("scripture", v.length)} found
+						</p>
 					</li>
 				))
 			}

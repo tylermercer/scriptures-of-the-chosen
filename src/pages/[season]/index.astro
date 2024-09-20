@@ -64,14 +64,17 @@ const episodes = await getCollection(
                                 &mdash; {e.data.title}
                             </a>
                         </h3>
-                        {e.data.description && <p>&ldquo;{e.data.description}&rdquo;</p>}
+                        {e.data.description && (
+                            <p>&ldquo;{e.data.description}&rdquo;</p>
+                        )}
                         <p>
                             <small>
                                 {e.data.references.length}
                                 {pluralize(
-                                    "Reference",
+                                    "scripture",
                                     e.data.references.length,
-                                )}
+                                )}{" "}
+                                found
                             </small>
                         </p>
                     </li>

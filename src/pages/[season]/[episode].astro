@@ -70,34 +70,43 @@ const passageTexts: Map<string, Verse[]> = new Map(
         <a class="watch" href={entry.data.watchUrl} target="_blank">
             Watch on TheChosen.tv <Icon name="fluent:open-12-regular" />
         </a>
-        <h2>References</h2>
+        <h2>Scriptures</h2>
         <p>
             {entry.data.references.length}
-            {pluralize("Reference", entry.data.references.length)}
+            {pluralize("scripture", entry.data.references.length)} found
         </p>
         <ol>
             {
                 entry.data.references.map((ref: Reference) => {
                     const passageVerses = passageTexts.get(ref.passage)!;
                     return (
-                        <Fragment><li>
-                            <h3>{ref.passage}</h3>
-                            <p>{ref.notes}</p>
-                            <blockquote>
-                                <ol class="passage">
-                                    {passageVerses.map((v: Verse) => (
-                                        <Fragment><li>
-                                            {passageVerses.length !== 1 && (
-                                                <Fragment><>
-                                                    <strong>{v.number}</strong>{" "}
-                                                </></Fragment>
-                                            )}
-                                            {v.text}
-                                        </li></Fragment>
-                                    ))}
-                                </ol>
-                            </blockquote>
-                        </li></Fragment>
+                        <Fragment>
+                            <li>
+                                <h3>{ref.passage}</h3>
+                                <p>{ref.notes}</p>
+                                <blockquote>
+                                    <ol class="passage">
+                                        {passageVerses.map((v: Verse) => (
+                                            <Fragment>
+                                                <li>
+                                                    {passageVerses.length !==
+                                                        1 && (
+                                                        <Fragment>
+                                                            <>
+                                                                <strong>
+                                                                    {v.number}
+                                                                </strong>{" "}
+                                                            </>
+                                                        </Fragment>
+                                                    )}
+                                                    {v.text}
+                                                </li>
+                                            </Fragment>
+                                        ))}
+                                    </ol>
+                                </blockquote>
+                            </li>
+                        </Fragment>
                     );
                 })
             }
