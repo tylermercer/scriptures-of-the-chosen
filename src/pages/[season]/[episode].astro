@@ -68,7 +68,10 @@ const passageTexts: Map<string, Verse[]> = new Map(
             )
         }
         <a class="watch" href={entry.data.watchUrl} target="_blank">
-            Watch on TheChosen.tv <Icon name="fluent:open-12-regular" />
+            Watch{" "}
+            <span class="u-desktop-only">on TheChosen.tv</span>
+            <span class="u-mobile-only">in the Chosen app</span>
+            <Icon name="fluent:open-12-regular" />
         </a>
         <h2>Scriptures</h2>
         <p>
