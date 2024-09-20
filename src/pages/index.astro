@@ -15,12 +15,18 @@ const {
 } = landingPage;
 
 const seasons = await Promise.all(
-	(await getCollection("seasons")).map(async (s) => [
-		s,
-		(
-			await getCollection("episodes", (e) => e.data.season.id === s.id)
-		).flatMap((e) => e.data.references),
-	]),
+	(await getCollection("seasons")).map(
+		async (s: CollectionEntry<"seasons">) => [
+			s,
+			(
+				await getCollection(
+					"episodes",
+					(e: CollectionEntry<"episodes">) =>
+						e.data.season.id === s.id,
+				)
+			).flatMap((e) => e.data.references),
+		],
+	),
 );
 
 type Season = CollectionEntry<"seasons">;
