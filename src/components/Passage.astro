@@ -1,0 +1,33 @@
+---
+import getScriptureText, { type Verse } from '@utils/getScriptureText';
+
+export type Props = {
+    passage: string,
+}
+
+const { passage } = Astro.props;
+
+const passageVerses = await getScriptureText(passage)
+---
+
+<blockquote>
+    <ol class="passage">
+        {passageVerses.map((v: Verse) => (
+            <Fragment>
+                <li>
+                    {passageVerses.length !==
+                        1 && (
+                        <Fragment>
+                            <>
+                                <strong>
+                                    {v.number}
+                                </strong>{" "}
+                            </>
+                        </Fragment>
+                    )}
+                    {v.text}
+                </li>
+            </Fragment>
+        ))}
+    </ol>
+</blockquote>

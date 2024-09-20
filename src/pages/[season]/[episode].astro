@@ -1,10 +1,9 @@
 ---
+import Passage from "@components/Passage.astro";
 import Footer from "@components/sections/Footer.astro";
 import NavigationBar from "@components/sections/NavigationBar.astro";
 import NextAndPrevLinks from "@components/sections/NextAndPrevLinks.astro";
 import Base from "@layouts/Base.astro";
-import type { Verse } from "@utils/getScriptureText";
-import getScriptureText from "@utils/getScriptureText";
 import pluralize from "@utils/pluralize";
 import toWithNextAndPrev, {
     type WithNextAndPrev,
@@ -47,15 +46,6 @@ const nextData = next && {
 };
 
 type Reference = CollectionEntry<"episodes">["data"]["references"][number];
-
-const passageTexts: Map<string, Verse[]> = new Map(
-    await Promise.all(
-        entry.data.references.map(async (r: Reference) => [
-            r.passage,
-            await getScriptureText(r.passage),
-        ]),
-    ),
-);
 ---
 
 <Base title={`${entry.data.title} | Scriptures of The Chosen`}>
@@ -80,38 +70,15 @@ const passageTexts: Map<string, Verse[]> = new Map(
         </p>
         <ol>
             {
-                entry.data.references.map((ref: Reference) => {
-                    const passageVerses = passageTexts.get(ref.passage)!;
-                    return (
-                        <Fragment>
-                            <li>
-                                <h3>{ref.passage}</h3>
-                                <p>{ref.notes}</p>
-                                <blockquote>
-                                    <ol class="passage">
-                                        {passageVerses.map((v: Verse) => (
-                                            <Fragment>
-                                                <li>
-                                                    {passageVerses.length !==
-                                                        1 && (
-                                                        <Fragment>
-                                                            <>
-                                                                <strong>
-                                                                    {v.number}
-                                                                </strong>{" "}
-                                                            </>
-                                                        </Fragment>
-                                                    )}
-                                                    {v.text}
-                                                </li>
-                                            </Fragment>
-                                        ))}
-                                    </ol>
-                                </blockquote>
-                            </li>
-                        </Fragment>
-                    );
-                })
+                entry.data.references.map((ref: Reference) => (
+                    <Fragment>
+                        <li>
+                            <h3>{ref.passage}</h3>
+                            <p>{ref.notes}</p>
+                            <Passage passage={ref.passage} />
+                        </li>
+                    </Fragment>
+                ))
             }
         </ol>
     </main>
