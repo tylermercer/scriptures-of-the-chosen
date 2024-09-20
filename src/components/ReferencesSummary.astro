@@ -1,13 +1,15 @@
 ---
-import pluralize from '@utils/pluralize';
 import type { CollectionEntry } from 'astro:content'
 export type Props = {
     references: CollectionEntry<'episodes'>['data']['references'],
 }
 
-const { references } = Astro.props;
+const { references: refs } = Astro.props;
+
+const str = refs.length > 2 ? `${refs[0]?.passage}, ${refs[1]?.passage}, and ${refs.length - 2} more` :
+        refs.length === 2 ? `${refs[0]?.passage} and ${refs[1]?.passage}` :
+        refs.length === 1 ? `${refs[0]?.passage}` :
+        `No references found yet`
 ---
 
-<span>
-    {references.length} {pluralize("scripture", references.length)} found    
-</span>
+<span>{str}</span>
