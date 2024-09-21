@@ -55,11 +55,11 @@ type Reference = CollectionEntry<"episodes">["data"]["references"][number];
         <nav aria-label="Breadcrumbs" class="breadcrumbs">
 	        <ol>
 		        <li>
-			        <a href={entry.data.season.id}>{entry.data.season.id.toUpperCase()}</a>
-			        <p aria-hidden="true">:</p>
-	      	    </li>
+			        <a href={`/${entry.data.season.id}`}>{entry.data.season.id.toUpperCase()}</a>
+			        <span aria-hidden="true">:</span>
+	      	        </li>
 		        <li>
-			        <a href="#" aria-current="page">{entry.id.toUpperCase()}</a>
+			        <a href="#" aria-current="page">{entry.data.episode.toUpperCase()}</a>
 		        </li>
 	        </ol>
         </nav>
