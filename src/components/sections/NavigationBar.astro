@@ -1,5 +1,5 @@
 ---
-
+import { Icon } from "astro-icon/components";
 ---
 
 <header class="u-text-on-dark">
@@ -8,6 +8,7 @@
             <ul class="nav-inner">
                 <li><a href="/">Home</a></li>
                 <li><a href="/about">About</a></li>
+                <li><a href="https://thechosen.tv" target="_blank">The Chosen <Icon name="fluent:open-12-regular" /></a></li>
             </ul>
         </div>
     </nav>
@@ -55,6 +56,11 @@
         line-height: var(--nav-height);
         font-size: var(--step-0);
         font-weight: 300;
+        & > :global(svg) {
+            display: inline-block;
+            margin-left: 0.4em;
+            transform: translateY(0.15em) scale(1.3);
+        }
         &:hover {
             text-decoration: underline;
             text-decoration-color: var(--primary-600);
