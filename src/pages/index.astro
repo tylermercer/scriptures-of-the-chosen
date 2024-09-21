@@ -26,7 +26,7 @@ const seasons = await Promise.all(
 						e.data.season.id === s.id,
 				)
 			).flatMap((e) => e.data.references),
-		],
+		] as const,
 	),
 );
 
