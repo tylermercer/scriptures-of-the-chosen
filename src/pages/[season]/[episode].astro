@@ -52,6 +52,17 @@ type Reference = CollectionEntry<"episodes">["data"]["references"][number];
 <Base title={`${entry.data.title} | Scriptures of The Chosen`}>
     <NavigationBar />
     <main class="u-guttered">
+        <nav aria-label="Breadcrumbs" class="breadcrumbs">
+	        <ol>
+		        <li>
+			        <a href={entry.data.season.id}>{entry.data.season.id.toUpperCase()}</a>
+			        <p aria-hidden="true">:</p>
+	      	    </li>
+		        <li>
+			        <a href="#" aria-current="page">{entry.id.toUpperCase()}</a>
+		        </li>
+	        </ol>
+        </nav>
         <h1>{entry.data.title}</h1>
         {
             entry.data.description && (
