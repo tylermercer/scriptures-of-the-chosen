@@ -52,6 +52,17 @@ type Reference = CollectionEntry<"episodes">["data"]["references"][number];
 <Base title={`${entry.data.title} | Scriptures of The Chosen`}>
     <NavigationBar />
     <main class="u-guttered">
+        <nav aria-label="Breadcrumbs" class="breadcrumbs">
+	        <ol>
+		        <li>
+			        <a href={`/${entry.data.season.id}`}>{entry.data.season.id.toUpperCase()}</a>
+			        <span aria-hidden="true">:</span>
+	      	        </li>
+		        <li>
+			        <a href="#" aria-current="page">{entry.data.episode.toUpperCase()}</a>
+		        </li>
+	        </ol>
+        </nav>
         <h1>{entry.data.title}</h1>
         {
             entry.data.description && (
@@ -127,5 +138,19 @@ type Reference = CollectionEntry<"episodes">["data"]["references"][number];
     }
     .article-section {
         padding-top: 0;
+    }
+    .breadcrumbs {
+      color: var(--gray-200);
+      li {
+         display: inline;
+      }
+      a {
+         &:link {
+            color: var(--gray-200);
+        }
+        &:visited {
+            color: var(--gray-200);
+        }
+      }
     }
 </style>
