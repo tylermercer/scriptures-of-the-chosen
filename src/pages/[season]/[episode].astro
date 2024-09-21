@@ -139,4 +139,18 @@ type Reference = CollectionEntry<"episodes">["data"]["references"][number];
     .article-section {
         padding-top: 0;
     }
+    .breadcrumbs {
+      color: var(--gray-200);
+      li {
+         display: inline;
+      }
+      a {
+         &:link {
+            color: var(--gray-200);
+        }
+        &:visited {
+            color: var(--gray-200);
+        }
+      }
+    }
 </style>
