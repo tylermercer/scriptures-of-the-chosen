@@ -8,7 +8,7 @@ export type Props = {
 const { next, prev, itemLabel } = Astro.props;
 ---
 
-<nav class="u-guttered" aria-label={`Next and Previous ${itemLabel}`}>
+<nav aria-label={`Next and Previous ${itemLabel}`}>
     {prev && <a href={prev.url}>Previous: {prev.label}</a>}
     {(prev && next) && <> &middot; </>}
     {next && <a href={next.url}>Next: {next.label}</a>}
