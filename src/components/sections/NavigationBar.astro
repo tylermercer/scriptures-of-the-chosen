@@ -8,7 +8,12 @@ import { Icon } from "astro-icon/components";
             <ul class="nav-inner">
                 <li><a href="/">Home</a></li>
                 <li><a href="/about">About</a></li>
-                <li><a href="https://thechosen.tv" target="_blank">The Chosen <Icon name="fluent:open-12-regular" /></a></li>
+                <li>
+                    <a href="https://thechosen.tv" target="_blank">
+                        The Chosen{" "}
+                        <Icon name="fluent:open-16-regular" />
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -58,8 +63,8 @@ import { Icon } from "astro-icon/components";
         font-weight: 300;
         & > :global(svg) {
             display: inline-block;
-            margin-left: 0.4em;
-            transform: translateY(0.15em) scale(1.3);
+            margin-left: 0.2em;
+            transform: translateY(0.15em) scale(1.2);
         }
         &:hover {
             text-decoration: underline;
