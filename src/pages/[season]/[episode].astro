@@ -16,15 +16,15 @@ export const getStaticPaths = (async () => {
     const episodes: CollectionEntry<"episodes">[] =
         await getCollection("episodes");
 
-    return toWithNextAndPrev(episodes).map((entryWithNextAndPrev) => {
-        return {
-            params: {
-                episode: entryWithNextAndPrev.item.data.episode,
-                season: entryWithNextAndPrev.item.data.season.id,
-            },
-            props: { entryWithNextAndPrev },
-        };
-    });
+    return toWithNextAndPrev(episodes).map((entryWithNextAndPrev) => ({
+        params: {
+            episode: entryWithNextAndPrev.item.data.episode,
+            //cast is necessary because of a bug in Astro
+            season: (entryWithNextAndPrev.item.data.season as { id: string })
+                .id,
+        },
+        props: { entryWithNextAndPrev },
+    }));
 }) satisfies GetStaticPaths;
 
 export type Props = {
@@ -37,12 +37,14 @@ const { item: entry, next, prev } = entryWithNextAndPrev;
 
 const prevData = prev && {
     label: prev.data.title,
-    url: `/${prev.data.season.id}/${prev.data.episode}`,
+    //cast is necessary because of a bug in Astro
+    url: `/${(prev.data.season as { id: string }).id}/${prev.data.episode}`,
 };
 
 const nextData = next && {
     label: next.data.title,
-    url: `/${next.data.season.id}/${next.data.episode}`,
+    //cast is necessary because of a bug in Astro
+    url: `/${(next.data.season as { id: string }).id}/${next.data.episode}`,
 };
 
 type Reference = CollectionEntry<"episodes">["data"]["references"][number];
@@ -52,15 +54,24 @@ type Reference = CollectionEntry<"episodes">["data"]["references"][number];
     <NavigationBar />
     <main class="u-guttered">
         <nav aria-label="Breadcrumbs" class="breadcrumbs">
-	        <ol>
-		        <li>
-			        <a href={`/${entry.data.season.id}`}>{entry.data.season.id.toUpperCase()}</a>
-			        <span aria-hidden="true">:</span>
-	      	        </li>
-		        <li>
-			        <a href="#" aria-current="page">{entry.data.episode.toUpperCase()}</a>
-		        </li>
-	        </ol>
+            <ol>
+                <li>
+                    <!-- cast is necessary because of a bug in Astro -->
+                    <a href={`/${(entry.data.season as { id: string }).id}`}
+                        >{
+                            (
+                                entry.data.season as { id: string }
+                            ).id.toUpperCase()
+                        }</a
+                    >
+                    <span aria-hidden="true">:</span>
+                </li>
+                <li>
+                    <a href="#" aria-current="page"
+                        >{entry.data.episode.toUpperCase()}</a
+                    >
+                </li>
+            </ol>
         </nav>
         <h1>{entry.data.title}</h1>
         {
@@ -76,9 +87,7 @@ type Reference = CollectionEntry<"episodes">["data"]["references"][number];
         </a>
         <h2>Scriptures</h2>
         <p>
-            <ReferencesSummary
-                references={entry.data.references}
-            />
+            <ReferencesSummary references={entry.data.references} />
         </p>
         <ol>
             {
@@ -139,17 +148,17 @@ type Reference = CollectionEntry<"episodes">["data"]["references"][number];
         padding-top: 0;
     }
     .breadcrumbs {
-      color: var(--gray-200);
-      li {
-         display: inline;
-      }
-      a {
-         &:link {
-            color: var(--gray-200);
+        color: var(--gray-200);
+        li {
+            display: inline;
         }
-        &:visited {
-            color: var(--gray-200);
+        a {
+            &:link {
+                color: var(--gray-200);
+            }
+            &:visited {
+                color: var(--gray-200);
+            }
         }
-      }
     }
 </style>

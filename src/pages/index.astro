@@ -6,8 +6,6 @@ import NavigationBar from "@components/sections/NavigationBar.astro";
 import * as landingPage from "../content/_one-offs/landing-page.md";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
-import type { Verse } from "@utils/getScriptureText";
-import pluralize from "@utils/pluralize";
 import ReferencesSummary from "@components/ReferencesSummary.astro";
 
 const {
@@ -15,20 +13,23 @@ const {
 	frontmatter: { title, description: tagline },
 } = landingPage;
 
-const seasons = await Promise.all(
-	(await getCollection("seasons")).map(
+const seasons = await getCollection("seasons");
+
+const references = new Map(await Promise.all(
+	seasons.map(
 		async (s: CollectionEntry<"seasons">) => [
-			s,
+			s.id,
 			(
 				await getCollection(
 					"episodes",
 					(e: CollectionEntry<"episodes">) =>
-						e.data.season.id === s.id,
+						//cast is necessary because of a bug in Astro
+						(e.data.season as { id: string}).id === s.id,
 				)
 			).flatMap((e) => e.data.references),
 		] as const,
 	),
-);
+));
 
 type Season = CollectionEntry<"seasons">;
 ---
@@ -41,13 +42,13 @@ type Season = CollectionEntry<"seasons">;
 		<h2>Seasons</h2>
 		<ol>
 			{
-				seasons.map(([s, v]: [Season, Verse[]]) => (
+				seasons.map((s: Season) => (
 					<li>
 						<h3>
 							<a href={`/${s.id}`}>{s.data.title}</a>
 						</h3>
 						<p>
-							<ReferencesSummary references={v} />
+							<ReferencesSummary references={references.get(s.id)!} />
 						</p>
 					</li>
 				))

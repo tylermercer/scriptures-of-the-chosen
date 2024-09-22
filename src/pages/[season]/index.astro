@@ -13,12 +13,10 @@ export const getStaticPaths = (async () => {
     const seasons: CollectionEntry<"seasons">[] =
         await getCollection("seasons");
 
-    return toWithNextAndPrev(seasons).map((entryWithNextAndPrev) => {
-        return {
-            params: { season: entryWithNextAndPrev.item.id },
-            props: { entryWithNextAndPrev },
-        };
-    });
+    return toWithNextAndPrev(seasons).map((entryWithNextAndPrev) => ({
+        params: { season: entryWithNextAndPrev.item.id },
+        props: { entryWithNextAndPrev },
+    }));
 }) satisfies GetStaticPaths;
 
 export type Props = {
@@ -43,7 +41,8 @@ const nextData = next && {
 
 const episodes = await getCollection(
     "episodes",
-    (e: CollectionEntry<"episodes">) => e.data.season.id === entry.id,
+    //cast is necessary because of a bug in Astro
+    (e: CollectionEntry<"episodes">) => (e.data.season as {id: string}).id === entry.id,
 );
 ---
 
