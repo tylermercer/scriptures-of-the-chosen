@@ -92,18 +92,16 @@ type Reference = CollectionEntry<"episodes">["data"]["references"][number];
         <ol>
             {
                 entry.data.references.map((ref: Reference) => (
-                    <Fragment>
-                        <li>
-                            <h3>{ref.passage}</h3>
-                            <p>{ref.notes}</p>
-                            <Passage passage={ref.passage} />
-                        </li>
-                    </Fragment>
+                    <li>
+                        <h3>{ref.passage}</h3>
+                        <p>{ref.notes}</p>
+                        <Passage passage={ref.passage} />
+                    </li>
                 ))
             }
         </ol>
+        <NextAndPrevLinks next={nextData} prev={prevData} itemLabel="Episode" />
     </main>
-    <NextAndPrevLinks next={nextData} prev={prevData} itemLabel="Episode" />
     <Footer />
 </Base>
 <style lang="scss">
