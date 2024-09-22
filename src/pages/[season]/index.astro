@@ -77,8 +77,8 @@ const episodes = await getCollection(
                 ))
             }
         </ol>
+        <NextAndPrevLinks next={nextData} prev={prevData} itemLabel="Season" />
     </main>
-    <NextAndPrevLinks next={nextData} prev={prevData} itemLabel="Season" />
     <Footer />
 </Base>
 <style lang="scss">
