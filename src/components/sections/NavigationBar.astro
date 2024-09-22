@@ -43,7 +43,7 @@ import { Icon } from "astro-icon/components";
         list-style: none;
         display: flex;
         align-items: center;
-        margin-inline: calc(-1* var(--space-s));
+        margin-inline: calc(-1 * var(--space-s));
         padding: 0;
     }
     a {
@@ -67,11 +67,9 @@ import { Icon } from "astro-icon/components";
             text-decoration-thickness: 3px;
             text-underline-offset: 6px;
         }
-        &:link {
-            color: var(--white);
-        }
+        &:link,
         &:visited {
-            color: var(--white);
+            color: inherit;
         }
     }
 </style>
