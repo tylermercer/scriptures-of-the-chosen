@@ -15,21 +15,23 @@ const {
 
 const seasons = await getCollection("seasons");
 
-const references = new Map(await Promise.all(
-	seasons.map(
-		async (s: CollectionEntry<"seasons">) => [
-			s.id,
-			(
-				await getCollection(
-					"episodes",
-					(e: CollectionEntry<"episodes">) =>
-						//cast is necessary because of a bug in Astro
-						(e.data.season as { id: string}).id === s.id,
-				)
-			).flatMap((e) => e.data.references),
-		] as const,
+const references = new Map(
+	await Promise.all(
+		seasons.map(
+			async (s: CollectionEntry<"seasons">) =>
+				[
+					s.id,
+					(
+						await getCollection(
+							"episodes",
+							(e: CollectionEntry<"episodes">) =>
+								e.data.season.id === s.id,
+						)
+					).flatMap((e) => e.data.references),
+				] as const,
+		),
 	),
-));
+);
 
 type Season = CollectionEntry<"seasons">;
 ---
@@ -48,7 +50,9 @@ type Season = CollectionEntry<"seasons">;
 							<a href={`/${s.id}`}>{s.data.title}</a>
 						</h3>
 						<p>
-							<ReferencesSummary references={references.get(s.id)!} />
+							<ReferencesSummary
+								references={references.get(s.id)!}
+							/>
 						</p>
 					</li>
 				))

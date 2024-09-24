@@ -41,8 +41,7 @@ const nextData = next && {
 
 const episodes = await getCollection(
     "episodes",
-    //cast is necessary because of a bug in Astro
-    (e: CollectionEntry<"episodes">) => (e.data.season as {id: string}).id === entry.id,
+    (e: CollectionEntry<"episodes">) => e.data.season.id === entry.id,
 );
 ---
 

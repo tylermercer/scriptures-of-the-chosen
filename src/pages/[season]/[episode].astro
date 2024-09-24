@@ -20,8 +20,7 @@ export const getStaticPaths = (async () => {
         params: {
             episode: entryWithNextAndPrev.item.data.episode,
             //cast is necessary because of a bug in Astro
-            season: (entryWithNextAndPrev.item.data.season as { id: string })
-                .id,
+            season: entryWithNextAndPrev.item.data.season.id,
         },
         props: { entryWithNextAndPrev },
     }));
@@ -37,14 +36,12 @@ const { item: entry, next, prev } = entryWithNextAndPrev;
 
 const prevData = prev && {
     label: prev.data.title,
-    //cast is necessary because of a bug in Astro
-    url: `/${(prev.data.season as { id: string }).id}/${prev.data.episode}`,
+    url: `/${prev.data.season.id}/${prev.data.episode}`,
 };
 
 const nextData = next && {
     label: next.data.title,
-    //cast is necessary because of a bug in Astro
-    url: `/${(next.data.season as { id: string }).id}/${next.data.episode}`,
+    url: `/${next.data.season.id}/${next.data.episode}`,
 };
 
 type Reference = CollectionEntry<"episodes">["data"]["references"][number];
@@ -56,14 +53,9 @@ type Reference = CollectionEntry<"episodes">["data"]["references"][number];
         <nav aria-label="Breadcrumbs" class="breadcrumbs">
             <ol>
                 <li>
-                    <!-- cast is necessary because of a bug in Astro -->
-                    <a href={`/${(entry.data.season as { id: string }).id}`}
-                        >{
-                            (
-                                entry.data.season as { id: string }
-                            ).id.toUpperCase()
-                        }</a
-                    >
+                    <a href={`/${entry.data.season.id}`}>
+                        {entry.data.season.id.toUpperCase()}
+                    </a>
                     <span aria-hidden="true">:</span>
                 </li>
                 <li>
