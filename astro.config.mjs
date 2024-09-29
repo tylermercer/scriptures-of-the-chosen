@@ -16,6 +16,9 @@ export default defineConfig({
   },
   scopedStyleStrategy: 'class',
   vite: {
+    server: {
+      hostname: 'sotc.localhost'
+    },
     ssr: {
       external: ['@jam-comments/server-utilities', 'node-fetch']
     }
