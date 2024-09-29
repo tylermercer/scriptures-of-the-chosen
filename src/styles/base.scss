@@ -11,6 +11,8 @@ body {
     font-size: var(--step-0);
     line-height: var(--lh-0);
     font-family: var(--body);
+    min-height: 100vh;
+    min-height: 100svh;
 }
 
 a {
