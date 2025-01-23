@@ -3,7 +3,8 @@ import sitemap from "@astrojs/sitemap";
 import icon from 'astro-icon';
 import metaTags from "astro-meta-tags";
 import { defineConfig } from 'astro/config';
-import remarkEmdash from './src/plugins/remark/emdash';
+import remarkEmdash from './lib/plugins/remark/emdash.js';
+import rawFonts from './lib/plugins/vite/rawFonts.js';
 
 // https://astro.build/config
 export default defineConfig({
@@ -19,8 +20,16 @@ export default defineConfig({
     server: {
       hostname: 'sotc.localhost'
     },
+    plugins: [rawFonts(['.woff'])],
     ssr: {
-      external: ['@jam-comments/server-utilities', 'node-fetch']
-    }
+      external: [
+        'astro/container',
+        'crypto',
+        'fs',
+        'path',
+        'sharp',
+        'esbuild',
+      ].flatMap(id => [id, `node:${id}`]),
+    },
   }
 });

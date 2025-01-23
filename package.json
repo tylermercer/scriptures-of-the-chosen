@@ -11,7 +11,7 @@
 		"sync": "astro sync",
 		"build": "astro build",
 		"astro": "astro",
-		"preview": "astro preview"
+		"preview": "wrangler pages dev ./dist --port 4321"
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.9.4",
